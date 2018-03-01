@@ -14,6 +14,7 @@ with app.app_context():
     from object.models import Object
     from circle.models import Circle
     from channel.models import Channel
+    from member.models import Member
     db.create_all()
 
 migrate = Migrate(app, db)

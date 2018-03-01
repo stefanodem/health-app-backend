@@ -15,7 +15,7 @@ class User(Entity):
     username = db.Column(db.String(64), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
-    language = db.Column(db.String(64), nullable=False)
+    language = db.Column(db.String(64))
     # session code
     code = db.Column(db.Integer)
     last_action = db.Column(db.DateTime, default=now())
