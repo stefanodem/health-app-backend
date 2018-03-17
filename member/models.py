@@ -14,4 +14,4 @@ class Member(db.Model):
     channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'))
 
     def __repr__(self):
-        return '<Member {}>'.format(self.user_guid)
+        return '<Member {}>'.format(self.user_id)

@@ -27,7 +27,7 @@ def get_user_circles(user_id):
     if user_id:
         circles = Circle.query.filter_by(owner_guid=user_id).all()
         if circles:
-            return jsonify(circles=[i.serialize for i in circles])
+            return jsonify(circles=[circle.serialize for circle in circles])
         else:
             abort(404)
     else:
@@ -51,9 +51,9 @@ def get_circle_members(circle_id):
     if circle_id:
         members = Member.query.filter_by(circle_id=circle_id).all()
         if members:
-            member_ids = [member.id for member in members]
-            member_profiles = User.query.filter(User.id.contains(member_ids)).all()
-            return member_profiles
+            member_ids = [member.user_id for member in members]
+            member_profiles = User.query.filter(User.id.in_(member_ids)).all()
+            return jsonify(members=[member.get_members for member in member_profiles])
         else:
             abort(404)
     else:

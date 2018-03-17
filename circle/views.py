@@ -7,7 +7,7 @@ from member.models import Member
 
 circle_app = Blueprint('circle', __name__)
 
-@circle_app.route('/circles/<int:circle_id>/posts', methods=('GET', 'POST'))
+@circle_app.route('/circle/<int:circle_id>/posts', methods=('GET', 'POST'))
 def get_circle_posts(circle_id):
     if circle_id:
         posts = Object.query.filter_by(circle_guid=circle_id, object_type='post').all()
