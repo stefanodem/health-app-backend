@@ -19,20 +19,23 @@ with app.app_context():
 
 migrate = Migrate(app, db)
 
-from entity.models import entity
-app.register_blueprint(entity)
+from entity.models import entity_app
+app.register_blueprint(entity_app)
 
-from user.views import user
-app.register_blueprint(user)
+from user.views import user_app
+app.register_blueprint(user_app)
 
-from object.views import object
-app.register_blueprint(object)
+from object.views import object_app
+app.register_blueprint(object_app)
 
-from circle.views import circle
-app.register_blueprint(circle)
+from circle.views import circle_app
+app.register_blueprint(circle_app)
 
-from channel.views import channel
-app.register_blueprint(channel)
+from channel.views import channel_app
+app.register_blueprint(channel_app)
+
+from member.views import member_app
+app.register_blueprint(member_app)
 
 def create_app():
     return app

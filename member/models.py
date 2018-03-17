@@ -9,10 +9,9 @@ class Member(db.Model):
 
     __tablename__ = 'member'
 
-    id = db.Column(db.Integer, primary_key=True)
-    user_guid = db.Column(db.Integer, db.ForeignKey('user.id'))
-    circle_guid = db.Column(db.Integer, db.ForeignKey('circle.id'))
-    channel_guid = db.Column(db.Integer, db.ForeignKey('channel.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    circle_id = db.Column(db.Integer, db.ForeignKey('circle.id'))
+    channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'))
 
     def __repr__(self):
         return '<Member {}>'.format(self.user_guid)

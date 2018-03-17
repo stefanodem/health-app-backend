@@ -3,8 +3,8 @@ import json
 
 from member.models import Member
 
-member = Blueprint('member', __name__)
+member_app = Blueprint('member', __name__)
 
-@member.route('/member', methods=('GET', 'POST'))
+@member_app.route('/member', methods=('GET', 'POST'))
 def register():
     return json.dumps({"greeting": "hi"})

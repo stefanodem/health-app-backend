@@ -3,8 +3,8 @@ import json
 
 from object.models import Object
 
-object = Blueprint('object', __name__)
+object_app = Blueprint('object', __name__)
 
-@object.route('/object', methods=('GET', 'POST'))
+@object_app.route('/object', methods=('GET', 'POST'))
 def register():
     return json.dumps({"greeting": "hi"})

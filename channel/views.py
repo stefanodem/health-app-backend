@@ -3,8 +3,8 @@ import json
 
 from channel.models import Channel
 
-channel = Blueprint('channel', __name__)
+channel_app = Blueprint('channel', __name__)
 
-@channel.route('/channel', methods=('GET', 'POST'))
+@channel_app.route('/channel', methods=('GET', 'POST'))
 def register():
     return json.dumps({"greeting": "hi"})

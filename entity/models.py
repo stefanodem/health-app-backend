@@ -2,7 +2,7 @@ from application import db
 from flask import Blueprint
 from utils.common import utc_now_ts as now
 
-entity = Blueprint('entity', __name__)
+entity_app = Blueprint('entity', __name__)
 
 class Entity(db.Model):
     """
