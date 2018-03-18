@@ -32,7 +32,7 @@ class User(Entity):
 
     # TODO: add avatar
     @property
-    def get_info(self):
+    def serialize_user_info(self):
         return {
             'userInfo': {
                 'uid': self.id,
@@ -44,7 +44,7 @@ class User(Entity):
         }
     
     @property
-    def get_members(self):
+    def serialize_member(self):
         return {
             'name': self.username,
             'userId': self.id,

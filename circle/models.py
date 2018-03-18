@@ -17,7 +17,7 @@ class Circle(Entity):
         return '<Circle {}>'.format(self.name)
 
     @property
-    def serialize(self):
+    def serialize_circle(self):
         return {
             'circleId': self.id,
             'name': self.name,

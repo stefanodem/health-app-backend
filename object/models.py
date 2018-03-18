@@ -7,6 +7,7 @@ class Object(Entity):
     A table for storing objects.
     An object my have a variety of object_types:
     - post
+    - reply
     - etc.
 
     """
