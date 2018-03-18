@@ -15,6 +15,7 @@ with app.app_context():
     from circle.models import Circle
     from channel.models import Channel
     from member.models import Member
+    from like.models import Like
     db.create_all()
 
 migrate = Migrate(app, db)
@@ -36,6 +37,10 @@ app.register_blueprint(channel_app)
 
 from member.views import member_app
 app.register_blueprint(member_app)
+
+from like.models import like_app
+app.register_blueprint(like_app)
+
 
 def create_app():
     return app

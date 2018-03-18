@@ -5,6 +5,7 @@ from application import db
 from circle.models import Circle
 from object.models import Object
 from member.models import Member
+from user.models import User
 
 circle_app = Blueprint('circle', __name__)
 
@@ -13,7 +14,10 @@ circle_app = Blueprint('circle', __name__)
 def create_circle():
     if request.is_json and request.method == 'POST':
         response = request.get_json()
-        new_circle = Circle(name=response['name'], description=response['description'])
+        new_circle = Circle(name=response['name'],
+                            description=response['description'],
+                            owner_guid=response['owner_guid'],
+                            type=response['type'])
         db.session.add(new_circle)
         db.session.commit()
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}

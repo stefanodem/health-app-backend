@@ -1,5 +1,7 @@
 from application import db
+from sqlalchemy import func
 from entity.models import Entity
+from like.models import Like
 
 
 class Object(Entity):
@@ -33,6 +35,9 @@ class Object(Entity):
     # TODO: find way to set liked to True or False
     @property
     def serialize_post(self):
+        like_count = Like.query.filter_by(object_id=self.id).count()
+        liked = Like.query.filter_by(user_id=self.owner_guid, object_id=self.id).scalar() is not None
+
         return {
             'postId': self.id,
             'user': {
@@ -41,6 +46,6 @@ class Object(Entity):
             'createdAt': self.created_at,
             'lastUpdated': self.updated_at,
             'body': self.body,
-            'likeCount': self.like_count,
-            'liked': True,
+            'likeCount': like_count,
+            'liked': liked,
         }

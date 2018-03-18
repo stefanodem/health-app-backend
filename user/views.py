@@ -22,7 +22,7 @@ def get_user(user_id):
         abort(404)
 
 
-@user_app.route('/users/circles/<int:user_id>', methods=['GET', 'POST'])
+@user_app.route('/users/<int:user_id>/circles', methods=['GET', 'POST'])
 def get_user_circles(user_id):
     if user_id:
         circles = Circle.query.filter_by(owner_guid=user_id).all()
@@ -34,7 +34,7 @@ def get_user_circles(user_id):
         abort(404)
 
 
-@user_app.route('/users/posts/<int:user_id>', methods=['GET', 'POST'])
+@user_app.route('/users/<int:user_id>/posts', methods=['GET', 'POST'])
 def get_user_posts(user_id):
     if user_id:
         posts = Object.query.filter_by(owner_guid=user_id, object_type='post').all()
@@ -44,3 +44,7 @@ def get_user_posts(user_id):
             abort(404)
     else:
         abort(404)
+
+
+def _get_likes(post_id):
+    return Like.query(func.count(object_id)).group_by(post_id)
