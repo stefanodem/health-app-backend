@@ -45,6 +45,3 @@ def get_user_posts(user_id):
     else:
         abort(404)
 
-
-def _get_likes(post_id):
-    return Like.query(func.count(object_id)).group_by(post_id)

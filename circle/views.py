@@ -14,10 +14,10 @@ circle_app = Blueprint('circle', __name__)
 def create_circle():
     if request.is_json and request.method == 'POST':
         response = request.get_json()
-        new_circle = Circle(name=response['name'],
-                            description=response['description'],
-                            owner_guid=response['owner_guid'],
-                            type=response['type'])
+        new_circle = Circle(owner_guid=response['userId'],
+                            type='circle',
+                            name=response['name'],
+                            description=response['description'])
         db.session.add(new_circle)
         db.session.commit()
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
