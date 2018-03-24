@@ -11,7 +11,6 @@ class Member(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     circle_id = db.Column(db.Integer, db.ForeignKey('circle.id'), primary_key=True)
-    # channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'), primary_key=True)
 
     def __repr__(self):
         return '<Member {}>'.format(self.user_id)

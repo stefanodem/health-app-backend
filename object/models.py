@@ -39,6 +39,7 @@ class Object(Entity):
         like_count = Like.query.filter_by(object_id=self.id).count()
         liked = Like.query.filter_by(user_id=self.owner_guid, object_id=self.id).scalar() is not None
         user = User.query.filter_by(id=self.owner_guid).first()
+        reply_count = Object.query.filter_by(parent_id=self.id).count()
 
         return {
             'postId': self.id,
@@ -52,6 +53,7 @@ class Object(Entity):
             'body': self.body,
             'likeCount': like_count,
             'liked': liked,
+            'replyCount': reply_count,
         }
 
     @property

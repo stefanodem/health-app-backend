@@ -32,16 +32,3 @@ def get_user_circles(user_id):
             abort(404)
     else:
         abort(404)
-
-
-@user_app.route('/users/<int:user_id>/posts', methods=['GET', 'POST'])
-def get_user_posts(user_id):
-    if user_id:
-        posts = Object.query.filter_by(owner_guid=user_id, object_type='post').all()
-        if posts:
-            return jsonify(posts=[post.serialize_post for post in posts])
-        else:
-            abort(404)
-    else:
-        abort(404)
-
