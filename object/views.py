@@ -21,9 +21,10 @@ def handle_posts(user_id, circle_id):
         db.session.commit()
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
     if request.method == 'GET':
-        posts = Object.query.filter_by(owner_guid=user_id, object_type='post').all()
+        posts = Object.query.filter_by(circle_guid=circle_id, object_type='post').all()
         if posts:
-            return jsonify(posts=[post.serialize_post for post in posts])
+            # needs to have user_id instead of self.owner_guid passed in
+            return jsonify(posts=[post.serialize_post(user_id) for post in posts])
     else:
         abort(400)
 
@@ -39,7 +40,7 @@ def delete_post(post_id):
 
 @object_app.route('/users/<int:user_id>/posts/<int:post_id>/like', methods=['POST', 'DELETE'])
 def handle_like(user_id, post_id):
-    if request.is_json and request.method == 'POST':
+    if request.method == 'POST':
         post_like = Like(user_id=user_id, object_id=post_id)
         db.session.add(post_like)
         db.session.commit()
@@ -64,14 +65,15 @@ def handle_replies(post_id):
     if request.is_json and request.method == 'POST':
         response = request.get_json()
         new_reply = Object(owner_guid=response['userId'],
-                           circle_guid=response['circleId'],
                            type='object',
                            object_type='reply',
                            parent_id=post_id,
                            body=response['body'])
         db.session.add(new_reply)
         db.session.commit()
-        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+        replies = Object.query.filter_by(parent_id=post_id).all()
+        if replies:
+            return jsonify(replies=[reply.serialize_reply for reply in replies])
     else:
         abort(404)
 

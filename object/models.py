@@ -34,10 +34,9 @@ class Object(Entity):
     def __repr__(self):
         return '<Object {}>'.format(self.id)
 
-    @property
-    def serialize_post(self):
+    def serialize_post(self, user_id):
         like_count = Like.query.filter_by(object_id=self.id).count()
-        liked = Like.query.filter_by(user_id=self.owner_guid, object_id=self.id).scalar() is not None
+        liked = Like.query.filter_by(user_id=user_id, object_id=self.id).scalar() is not None
         user = User.query.filter_by(id=self.owner_guid).first()
         reply_count = Object.query.filter_by(parent_id=self.id).count()
 
@@ -46,7 +45,7 @@ class Object(Entity):
             'user': {
                 'uid': self.owner_guid,
                 'name': user.username,
-                'avatar': 'http://profile.actionsprout.com/default.jpeg',
+                'avatar': 'https://i.skyrock.net/5051/35505051/pics/1355844534.jpg',
             },
             'createdAt': self.created_at,
             'lastUpdated': self.updated_at,
