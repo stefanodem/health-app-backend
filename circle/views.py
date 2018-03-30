@@ -14,11 +14,13 @@ circle_app = Blueprint('circle', __name__)
 def create_circle():
     if request.is_json and request.method == 'POST':
         response = request.get_json()
-        new_circle = Circle(owner_guid=response['userId'],
+        new_circle = Circle(owner_guid=response['uid'],
                             type='circle',
                             name=response['name'],
                             description=response['description'])
         db.session.add(new_circle)
+        db.session.flush()
+        new_circle.circle_guid = new_circle.id
         db.session.commit()
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
     else:
@@ -40,10 +42,7 @@ def delete_circle(circle_id):
 def get_circle_posts(circle_id):
     if circle_id:
         posts = Object.query.filter_by(circle_guid=circle_id, object_type='post').all()
-        if posts:
-            return jsonify(posts=[post.serialize_post for post in posts])
-        else:
-            abort(404)
+        return jsonify(posts=[post.serialize_post for post in posts])
     else:
         abort(404)
 

@@ -22,9 +22,7 @@ def handle_posts(user_id, circle_id):
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
     if request.method == 'GET':
         posts = Object.query.filter_by(circle_guid=circle_id, object_type='post').all()
-        if posts:
-            # needs to have user_id instead of self.owner_guid passed in
-            return jsonify(posts=[post.serialize_post(user_id) for post in posts])
+        return jsonify(posts=[post.serialize_post(user_id) for post in posts])
     else:
         abort(400)
 
@@ -58,10 +56,7 @@ def handle_like(user_id, post_id):
 def handle_replies(post_id):
     if request.method == 'GET':
         replies = Object.query.filter_by(parent_id=post_id).all()
-        if replies:
-            return jsonify(replies=[reply.serialize_reply for reply in replies])
-        else:
-            abort(404)
+        return jsonify(replies=[reply.serialize_reply for reply in replies])
     if request.is_json and request.method == 'POST':
         response = request.get_json()
         new_reply = Object(owner_guid=response['userId'],
@@ -72,8 +67,7 @@ def handle_replies(post_id):
         db.session.add(new_reply)
         db.session.commit()
         replies = Object.query.filter_by(parent_id=post_id).all()
-        if replies:
-            return jsonify(replies=[reply.serialize_reply for reply in replies])
+        return jsonify(replies=[reply.serialize_reply for reply in replies])
     else:
         abort(404)
 

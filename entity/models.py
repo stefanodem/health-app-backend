@@ -17,8 +17,8 @@ class Entity(db.Model):
     type = db.Column(db.String(30), nullable=False)
     # reference to the object subtype, e.g. post
     # subtype = db.Column(db.String(30))
-    owner_guid = db.Column(db.Integer)  # Column(Integer, ForeignKey('restaurant.id'))
-    circle_guid = db.Column(db.Integer)  # Column(Integer, ForeignKey('restaurant.id'))
+    owner_guid = db.Column(db.Integer)
+    circle_guid = db.Column(db.Integer)
     # container_guid = db.Column(db.Integer)
     # access_id = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=now())

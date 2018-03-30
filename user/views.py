@@ -26,9 +26,6 @@ def get_user(user_id):
 def get_user_circles(user_id):
     if user_id:
         circles = Circle.query.filter_by(owner_guid=user_id).all()
-        if circles:
-            return jsonify(circles=[circle.serialize_circle for circle in circles])
-        else:
-            abort(404)
+        return jsonify(circles=[circle.serialize_circle for circle in circles])
     else:
         abort(404)
